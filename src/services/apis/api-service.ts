@@ -29,6 +29,7 @@ export class ApiService {
   private notifHandling(type: "success" | "error", content: string) {
     setMessageContent.set(messageContent, {
       type: type,
+      title: "Error",
       content: content ?? "Something went wrong",
     });
     return content;
@@ -48,9 +49,11 @@ export class ApiService {
     } catch (error: any) {
       let errorMessage = "Something went wrong";
       if (error.response) {
-        errorMessage = error.response.data;
+        errorMessage = error.response.data.message;
       }
       this.notifHandling("error", errorMessage);
+
+      return error.response
     }
   }
 
@@ -61,7 +64,7 @@ export class ApiService {
       headers,
       params,
     });
-    return response?.data;
+    return response.data;
   }
 
   public async post(url: string, payload?: any, headers?: any) {
