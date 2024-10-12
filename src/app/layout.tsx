@@ -1,3 +1,4 @@
+import ClientProvider from "@/components/Provider/ClientProvider";
 import { inter } from "@/utils/fonts";
 import "@/styles/globals.css";
 
@@ -9,6 +10,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ClientProvider>{children}</ClientProvider>
       </body>
     </html>
   );
