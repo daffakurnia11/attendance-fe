@@ -9,3 +9,17 @@ export interface LoginPayload {
   email: string;
   password: string;
 }
+
+export interface AuthUserResponse {
+  id: string;
+  name: string;
+  email: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string | null;
+}
+
+export interface AuthResponse {
+  token: string;
+  user: AuthUserResponse;
+}
