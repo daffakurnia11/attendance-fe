@@ -48,7 +48,7 @@ export default function Register() {
           label="Confirm Password"
           name="confirm_password"
           rules={[
-            { required: true, message: "Please confirm your password" },
+            { required: true, message: "Please repeat your password" },
             ({ getFieldValue }) => ({
               validator(_, value) {
                 if (!value || getFieldValue("password") === value) {

@@ -10,7 +10,7 @@ export interface LoginPayload {
   password: string;
 }
 
-export interface AuthUserResponse {
+export interface UserResponse {
   id: string;
   name: string;
   email: string;
@@ -21,5 +21,5 @@ export interface AuthUserResponse {
 
 export interface AuthResponse {
   token: string;
-  user: AuthUserResponse;
+  user: UserResponse;
 }

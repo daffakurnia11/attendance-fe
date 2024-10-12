@@ -2,6 +2,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { messageContent, setMessageContent } from "@/utils/atoms";
 import * as url from "../urls/base";
+import { getCookie } from "cookies-next";
 
 export class ApiService {
   /**
@@ -17,6 +18,32 @@ export class ApiService {
     this.axiosInstance = axios.create({
       baseURL: url.APIURL,
     });
+
+    this.initializeRequestInterceptor();
+  }
+
+  /**
+   * Request Interceptor
+   * For intercepting the request call to the API.
+   * Adding the Authorization headers for using a access token from Backend
+   */
+  private initializeRequestInterceptor(): void {
+    this.axiosInstance.interceptors.request.use(
+      (config) => {
+        const token = getCookie("token");
+
+        if (!token) return config;
+
+        if (token) {
+          config.headers["Authorization"] = `Bearer ${token}`;
+        }
+
+        return config;
+      },
+      (error) => {
+        return Promise.reject(error);
+      }
+    );
   }
 
   /**

@@ -5,13 +5,9 @@ import Typography from "../Typography";
 import Link from "next/link";
 import { Dropdown, MenuProps } from "antd";
 import { deleteCookie } from "cookies-next";
-import type { AuthUserResponse } from "@/types/auth";
+import type { UserResponse } from "@/types/auth";
 
-export default function Navigation({
-  userData,
-}: {
-  userData: AuthUserResponse;
-}) {
+export default function Navigation({ userData }: { userData: UserResponse }) {
   const onLogout = () => {
     deleteCookie("user");
     deleteCookie("token");
