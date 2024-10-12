@@ -1,18 +1,16 @@
+import { authApi } from "@/services/apis/auth";
+import type { RegisterPayload } from "@/types/auth";
 import React from "react";
-
-interface RegisterPayload {
-  name: string;
-  email: string;
-  password: string;
-  confirm_password: string;
-}
 
 export const useRegister = () => {
   const [loading, setLoading] = React.useState(false);
 
   const onSubmit = (values: RegisterPayload) => {
     setLoading(true);
-    console.log(values);
+    authApi.register(values).then((response) => {
+      console.log(response);
+      setLoading(false);
+    });
   };
 
   return { onSubmit, loading };
