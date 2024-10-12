@@ -2,7 +2,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { messageContent, setMessageContent } from "@/utils/atoms";
 import * as url from "../urls/base";
-import { getCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 
 export class ApiService {
   /**
@@ -20,6 +20,7 @@ export class ApiService {
     });
 
     this.initializeRequestInterceptor();
+    this.initializeResponseInterceptor();
   }
 
   /**
@@ -44,6 +45,23 @@ export class ApiService {
         return Promise.reject(error);
       }
     );
+  }
+
+  /**
+   * Response Interceptor
+   * For intercepting the response call to the API.
+   * When the access token is invalid, the API is automatically call the refresh token API
+   */
+  private initializeResponseInterceptor(): void {
+    this.axiosInstance.interceptors.response.use(null, async (err) => {
+      if (err.status === 401) {
+        deleteCookie("user");
+        deleteCookie("token");
+        window.location.href = "/login";
+      }
+
+      return Promise.reject(err);
+    });
   }
 
   /**
@@ -80,7 +98,7 @@ export class ApiService {
       }
       this.notifHandling("error", errorMessage);
 
-      return error.response
+      return error.response;
     }
   }
 
@@ -94,7 +112,7 @@ export class ApiService {
     return response.data;
   }
 
-  public async post(url: string, payload?: any, headers?: any) {
+  public async post<T>(url: string, payload?: any, headers?: any): Promise<T> {
     return await this.request({
       method: "POST",
       url: url,
@@ -103,7 +121,7 @@ export class ApiService {
     });
   }
 
-  public async put(url: string, payload?: any, headers?: any) {
+  public async put<T>(url: string, payload?: any, headers?: any): Promise<T> {
     return await this.request({
       method: "PUT",
       url: url,
@@ -112,7 +130,7 @@ export class ApiService {
     });
   }
 
-  public async patch(url: string, payload?: any, headers?: any) {
+  public async patch<T>(url: string, payload?: any, headers?: any): Promise<T> {
     return await this.request({
       method: "PATCH",
       url: url,

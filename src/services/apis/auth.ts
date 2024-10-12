@@ -1,16 +1,17 @@
 import { ApiService } from "./api-service";
 import * as url from "../urls/auth";
-import { LoginPayload, RegisterPayload } from "@/types/auth";
+import { AuthResponse, LoginPayload, RegisterPayload, UserResponse } from "@/types/auth";
+import { ResponseWithData } from "@/types/response";
 
 class AuthApi extends ApiService {
   public async register(payload: RegisterPayload) {
-    const response = await this.post(url.registerUrl, payload);
+    const response = await this.post<ResponseWithData<UserResponse>>(url.registerUrl, payload);
 
     return response;
   }
 
   public async login(payload: LoginPayload) {
-    const response = await this.post(url.loginUrl, payload);
+    const response = await this.post<ResponseWithData<AuthResponse>>(url.loginUrl, payload);
 
     return response;
   }
