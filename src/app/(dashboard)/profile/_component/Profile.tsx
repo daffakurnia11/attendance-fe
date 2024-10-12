@@ -16,12 +16,13 @@ export default function Profile() {
 
   const onUpdate = (values: UpdateProfilePayload) => {
     trigger(values, {
-      onSuccess: (response) => {
-        setCookie("user", JSON.stringify(response.data.data));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      onSuccess(response: any) {
+        setCookie("user", JSON.stringify(response.data!.data));
         setMessage({
           type: "success",
           title: "Success",
-          content: response.data.message,
+          content: response.data?.message,
         });
       },
     });
@@ -39,7 +40,7 @@ export default function Profile() {
         {data ? (
           <Form
             layout="vertical"
-            initialValues={{ email: data?.data.email, name: data?.data.name }}
+            initialValues={{ email: data!.data?.email, name: data!.data?.name }}
             onFinish={onUpdate}
           >
             <Form.Item

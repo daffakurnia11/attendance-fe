@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Dashboard from "./_component/Dashboard";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -6,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return (
-    <div>
-      <h1>Hello</h1>
-    </div>
-  );
+  return <Dashboard />;
 }
