@@ -14,7 +14,8 @@ export default function ChangePass() {
 
   const onUpdate = (values: ChangePassPayload) => {
     setLoading(true);
-    userApi.changePassword(values).then((response) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    userApi.changePassword(values).then((response: any) => {
       if (response.status === 200) {
         setMessage({
           type: "success",
