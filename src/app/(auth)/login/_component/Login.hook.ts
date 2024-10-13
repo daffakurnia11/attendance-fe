@@ -10,7 +10,8 @@ export const useLogin = () => {
 
   const onSubmit = (values: LoginPayload) => {
     setLoading(true);
-    authApi.login(values).then((response) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    authApi.login(values).then((response: any) => {
       if (response.status === 200) {
         setCookie("token", response.data.data.token);
         setCookie("user", response.data.data.user);

@@ -19,7 +19,6 @@ export default function Dashboard() {
   );
 
   const onSearch = (data: AttendanceQueryParams) => {
-    console.log(data);
     setParams(data);
     mutate();
   };
@@ -101,11 +100,7 @@ export default function Dashboard() {
               title: "Action",
               render: (_, record: AttendanceResponse) => (
                 <Link href={`/${record.attendance_id}`}>
-                  <Button
-                    size="small"
-                    type="link"
-                    onClick={() => console.log(record)}
-                  >
+                  <Button size="small" type="link">
                     <EyeOutlined className="text-lg" />
                   </Button>
                 </Link>

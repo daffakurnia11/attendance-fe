@@ -19,7 +19,7 @@ export const useListAttendance = (params?: AttendanceQueryParams | null) => {
 };
 
 export const useDetailAttendance = (id: string) => {
-  const { data, isLoading } = useSWR(url.attendanceDetailUrl, () =>
+  const { data, isLoading } = useSWR(url.attendanceDetailUrl(id), () =>
     attendanceApi.detail(id)
   );
 

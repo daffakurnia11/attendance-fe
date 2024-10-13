@@ -3,6 +3,7 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 import { messageContent, setMessageContent } from "@/utils/atoms";
 import * as url from "../urls/base";
 import { deleteCookie, getCookie } from "cookies-next";
+import { loginUrl } from "../urls/auth";
 
 export class ApiService {
   /**
@@ -54,7 +55,7 @@ export class ApiService {
    */
   private initializeResponseInterceptor(): void {
     this.axiosInstance.interceptors.response.use(null, async (err) => {
-      if (err.status === 401) {
+      if (err.status === 401 && (err.config.url !== loginUrl)) {
         deleteCookie("user");
         deleteCookie("token");
         window.location.href = "/login";
