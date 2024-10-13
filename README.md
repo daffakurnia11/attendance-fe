@@ -189,7 +189,7 @@ To run this project locally, follow the steps below.
 
 Check out the live version of the application and play around:
 
-- [https://attendance-fe-3e7r.vercel.app/](https://attendance-fe-3e7r.vercel.app/)
+- [https://attendance.dafkur.com/](https://attendance.dafkur.com/)
 
 ---
 
