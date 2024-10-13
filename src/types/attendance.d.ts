@@ -5,6 +5,12 @@ export interface AttendancePayload {
   photo: string;
 }
 
+export interface AttendanceQueryParams {
+  name: string;
+  email: string;
+  created_at: string[];
+}
+
 export interface AttendanceResponse {
   attendance_id: string;
   latitude: string;

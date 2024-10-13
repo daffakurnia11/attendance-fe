@@ -1,12 +1,13 @@
 import { ApiService } from "./api-service";
 import * as url from "../urls/attendance";
-import { AttendancePayload, AttendanceResponse } from "@/types/attendance";
+import { AttendancePayload, AttendanceQueryParams, AttendanceResponse } from "@/types/attendance";
 import { BaseResponse, ResponseWithData } from "@/types/response";
 
 class AttendanceApi extends ApiService {
-  public async list() {
+  public async list(params?: AttendanceQueryParams | null) {
     const response = await this.get<ResponseWithData<AttendanceResponse[]>>(
-      url.attendanceListUrl
+      url.attendanceListUrl,
+      params
     );
 
     return response;
