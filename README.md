@@ -1,36 +1,250 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Attendance Frontend
 
-## Getting Started
+This project is a **Next.js-based web application** for managing user attendance. It features **user authentication, attendance tracking,** and **profile management** with an intuitive and responsive UI. The application communicates with a backend API hosted at [attendance-be.test.dafkur.com](https://attendance-be.test.dafkur.com).
 
-First, run the development server:
+This README provides an overview of the project structure, installation steps, key features, and technical decisions made during development.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Features](#features)
+- [Usage](#usage)
+- [Live Demo](#live-demo)
+- [Tech Decisions](#tech-decisions)
+- [Environment Variables](#environment-variables)
+- [Security Considerations](#security-considerations)
+- [Future Improvements](#future-improvements)
+- [Contact Information](#contact-information)
+
+---
+
+## Project Structure
+
+```
+|-- .github/
+|-- .next/
+|-- node_modules/
+|-- src/
+|   |-- app/
+|       |-- (auth)/
+|           |-- login/
+|               |-- _component/
+|                   |-- Login.hook.ts
+|                   |-- Login.tsx
+|               |-- page.tsx
+|           |-- register/
+|               |-- _component/
+|                   |-- Register.hook.ts
+|                   |-- Register.tsx
+|               |-- page.tsx
+|       |-- (dashboard)/
+|           |-- _component/
+|               |-- Dashboard.tsx
+|               |-- AttendanceDetail.tsx
+|           |-- [...id]/page.tsx
+|       |-- attend/
+|           |-- _component/
+|               |-- Attend.tsx
+|           |-- page.tsx
+|       |-- password/
+|           |-- _component/
+|               |-- ChangePass.tsx
+|           |-- page.tsx
+|       |-- profile/
+|           |-- _component/
+|               |-- Profile.tsx
+|           |-- layout.tsx
+|           |-- page.tsx
+|   |-- components/
+|       |-- Attendance/
+|           |-- Camera.tsx
+|           |-- useCamera.ts
+|           |-- useIPAddress.ts
+|           |-- useLocation.ts
+|       |-- Message/
+|           |-- index.tsx
+|       |-- Navigation/
+|           |-- index.tsx
+|       |-- Provider/
+|           |-- ClientProvider.tsx
+|       |-- Typography/
+|           |-- Heading.tsx
+|           |-- Text.tsx
+|   |-- services/
+|       |-- apis/
+|           |-- api-service.ts
+|           |-- attendance.ts
+|           |-- auth.ts
+|           |-- user.ts
+|       |-- swr/
+|           |-- useAttendance.ts
+|           |-- useUser.ts
+|   |-- styles/
+|       |-- globals.css
+|   |-- types/
+|       |-- attendance.d.ts
+|       |-- auth.d.ts
+|       |-- response.d.ts
+|       |-- user.d.ts
+|   |-- utils/
+|       |-- atoms.ts
+|       |-- fonts.ts
+|       |-- path.ts
+|       |-- middleware.ts
+|-- .env.local
+|-- Dockerfile
+|-- docker-compose.yml
+|-- tailwind.config.ts
+|-- tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+To run this project locally, follow the steps below.
 
-## Learn More
+1.  **Clone the Repository:**
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/your-repo/attendance-frontend.git
+    cd attendance-frontend
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2.  **Install Dependencies:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+    ```bash
+    npm install
+    ```
 
-## Deploy on Vercel
+3.  **Create a `.env.local` File:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    In the root directory, create a `.env.local` file with the following content:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+    ```env
+    NEXT_PUBLIC_API_BASE_URL=https://attendance-be.test.dafkur.com
+    ```
+
+4.  **Run the Development Server:**
+
+    You can run the project using **`npm`** or **Docker Compose**.
+
+    - **Using npm:**
+
+      ```bash
+      npm run dev
+      ```
+
+    - **Using Docker Compose:**
+
+      Ensure **Docker** is installed on your machine. Then, run:
+
+      ```bash
+      docker-compose up --build
+      ```
+
+5.  Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+---
+
+## Features
+
+- **User Authentication:**  
+  Login and registration system using hooks for cleaner code.
+
+- **Attendance Tracking:**  
+  Allows users to record their attendances with camera, geolocation, and IP Address tracker support.
+
+- **Pagination and Detail View:**  
+  View all attendance logs with pagination and detailed attendance views.
+
+- **Profile Management:**  
+  Update user information and change passwords.
+
+- **Responsive Design:**  
+  Styled using **Tailwind CSS** and **Ant Design** components for a modern, mobile-friendly UI.
+
+---
+
+## Usage
+
+- **Login/Register:**  
+  Use your credentials to log in or create an account.
+
+- **Attendance Tracking:**  
+  Go to the attendance page to mark your attendance. The app uses your camera and location to verify the check-in.
+
+- **Report Attendance:**
+  Use to see the list of attendance by date and time, including the filter for search by name, email, and datetime.
+
+- **Profile Management:**  
+  Update your profile and password in the profile section.
+
+---
+
+## Live Demo
+
+Check out the live version of the application and play around:
+
+- [https://attendance-fe-3e7r.vercel.app/](https://attendance-fe-3e7r.vercel.app/)
+
+---
+
+## Tech Decisions
+
+- **Next.js:** Provides SSR and SSG capabilities, boosting SEO and performance.
+- **Ant Design & Tailwind CSS:** Offers a combination of components and utility classes for rapid UI development.
+- **Jotai:** Lightweight state management solution for better maintainability.
+- **SWR:** Simplifies data fetching and caching while keeping UI data fresh.
+- **Axios:** Used for HTTP requests with the backend API.
+
+---
+
+## Environment Variables
+
+- **API Base URL:**  
+  The base URL for the backend API is configured via environment variables.
+
+  ```env
+  NEXT_PUBLIC_API_BASE_URL=https://attendance-be.test.dafkur.com
+  ```
+
+---
+
+## Security Considerations
+
+- **Secure API Communication:**  
+  All API requests use **HTTPS** to protect user data.
+
+- **Cookie Management:**  
+  Authentication tokens are securely managed using **cookies-next** on both client and server.
+
+- **Input Validation:**  
+  Ensures all user inputs are sanitized to prevent XSS attacks.
+
+---
+
+## Future Improvements
+
+- **Dark Mode Support:**  
+  Add theme switching for better user experience.
+
+- **Enhanced Error Logging:**  
+  Integrate logging services to monitor and debug production issues.
+
+- **PWA Support:**  
+  Make the app installable as a Progressive Web App.
+
+---
+
+## Contact Information
+
+For any inquiries or support, feel free to contact:
+
+- **Email:** daffakurniaf11@gmail.com
+- **WhatsApp:** [+6285156317473](https://wa.me/6285156317473)
+- **LinkedIn:** [Daffa Kurnia Fatah](https://www.linkedin.com/in/daffakurniafatah/)
+- **Portfolio:** [dafkur.com](https://dafkur.com)
