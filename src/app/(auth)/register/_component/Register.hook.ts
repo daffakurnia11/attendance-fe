@@ -12,7 +12,8 @@ export const useRegister = () => {
 
   const onSubmit = (values: RegisterPayload) => {
     setLoading(true);
-    authApi.register(values).then((response) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    authApi.register(values).then((response: any) => {
       if (response.status === 201) {
         setMessage({
           type: "success",
